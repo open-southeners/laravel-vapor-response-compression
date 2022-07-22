@@ -18,7 +18,7 @@ class ResponseCompression
         return tap($next($request), function ($response) use ($request) {
             $compressionAlgorithm = $this->shouldCompressUsing($request);
 
-            if ($this->shouldCompressResponse($response, $request) && $compressionAlgorithm !== null) {
+            if ($this->shouldCompressResponse($response) && $compressionAlgorithm !== null) {
                 [$algo, $function] = $compressionAlgorithm;
 
                 $response->setContent(
@@ -41,10 +41,9 @@ class ResponseCompression
      * Determine if response should be compressed.
      *
      * @param  \Illuminate\Http\Response  $response
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    protected function shouldCompressResponse($response, $request): bool
+    protected function shouldCompressResponse($response): bool
     {
         return strlen($response->getContent()) >= config('vapor.response_compression.threshold', 10000);
     }

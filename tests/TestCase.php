@@ -1,16 +1,28 @@
 <?php
 
-namespace OpenSoutheners\PhpPackage\Tests;
+namespace OpenSoutheners\LaravelVaporResponseCompression\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use OpenSoutheners\PhpPackage\ServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
-    protected function getPackageProviders($app)
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function defineEnvironment($app)
     {
-        return [
-            ServiceProvider::class,
-        ];
+        $app['config']->set('vapor', [
+            'response_compression' => [
+                'threshold' => 10000,
+                'level' => [
+                    'br' => 10,
+                    'gzip' => 9,
+                    'deflate' => 9,
+                ],
+            ],
+        ]);
     }
 }

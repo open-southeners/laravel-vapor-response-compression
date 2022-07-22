@@ -1,9 +1,9 @@
 {
-    "name": "packagist_package_here",
-    "description": "and_description_here",
+    "name": "open-southeners/laravel-vapor-response-compression",
+    "description": "Add server-side response compression with different algorithm support (Gzip, brotli...)",
     "license": "MIT",
     "keywords": [
-        "open-southeners"
+        "open-southeners", "vapor", "laravel", "response-compression", "brotli"
     ],
     "authors": [
         {
@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0|^8.1"
+        "php": "^7.2|^8.0|^8.1",
+        "ext-zlib": "^7.2|^8.0|^8.1"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -23,23 +24,16 @@
     },
     "autoload": {
         "psr-4": {
-            "OpenSoutheners\\PhpPackage\\": "src"
+            "OpenSoutheners\\LaravelVaporResponseCompression\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenSoutheners\\PhpPackage\\Tests\\": "tests"
+            "OpenSoutheners\\LaravelVaporResponseCompression\\Tests\\": "tests"
         }
     },
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "OpenSoutheners\\PhpPackage\\JsonApiServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

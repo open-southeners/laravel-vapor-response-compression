@@ -1,0 +1,45 @@
+{
+    "name": "packagist_package_here",
+    "description": "and_description_here",
+    "license": "MIT",
+    "keywords": [
+        "open-southeners"
+    ],
+    "authors": [
+        {
+            "name": "Ruben Robles",
+            "email": "d8vjork@outlook.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0|^8.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/larastan": "^1.0",
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^7.0|^9.0",
+        "orchestra/testbench": "^4.0|^6.0|^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenSoutheners\\PhpPackage\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenSoutheners\\PhpPackage\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OpenSoutheners\\PhpPackage\\JsonApiServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}

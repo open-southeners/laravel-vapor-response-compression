@@ -1,0 +1,21 @@
+name: phpstan
+
+on: [ push, pull_request ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    name: PHPStan
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          tools: phpstan
+
+      - name: Run analysis
+        run: phpstan analyse

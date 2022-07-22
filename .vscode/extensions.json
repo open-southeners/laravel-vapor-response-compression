@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "DEVSENSE.phptools-vscode",
+    "open-southeners.php-support-utils",
+    "open-southeners.laravel-pint",
+    "ikappas.composer",
+    "pixelfear.composer-links",
+    "editorconfig.editorconfig",
+    "xdebug.php-debug",
+    "junstyle.php-cs-fixer",
+    "kasik96.latte",
+    "calebporzio.better-phpunit"
+  ]
+}

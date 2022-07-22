@@ -1,0 +1,72 @@
+name: tests
+
+on: [ push, pull_request ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest ]
+        php: [ 7.4, 8.0, 8.1 ]
+        laravel: [ 6.*, 8.*, 9.* ]
+        dependency-version: [ prefer-stable ]
+        exclude:
+          # PHP 8.1 is not compatible with Laravel 6!
+          - laravel: 6.*
+            php: 8.1
+          # PHP 7 is not compatible with Laravel 9 and future releases!
+          - laravel: 9.*
+            php: 7.4
+        include:
+          - laravel: 6.*
+            testbench: 4.*
+
+          - laravel: 8.*
+            testbench: 6.*
+          
+          - laravel: 9.*
+            testbench: 7.*
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, exif
+          coverage: pcov
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.dependency-version }}-
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+
+      - name: Execute tests
+        run: |
+          cp phpunit.coverage.dist.xml phpunit.xml || true
+          vendor/bin/phpunit
+
+      - name: Deploy coverage to codacy
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          # project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: clover.xml

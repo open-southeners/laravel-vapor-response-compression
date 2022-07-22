@@ -67,6 +67,18 @@ class ResponseCompressionTest extends TestCase
         );
     }
 
+    public function testClientGetResponseAskingAnUnrecognisedEncodingReceivesRawResponse()
+    {
+        $response = $this->get('/heavy', ['Accept-Encoding' => 'unknown']);
+
+        $response->assertHeaderMissing('Content-Encoding');
+
+        $this->assertEquals(
+            $response->json(),
+            ['content' => $this->heavyResponseContent]
+        );
+    }
+
     // TODO: vdechenaux/brotli is not compatible with Laravel dependencies...
     // public function testClientGetResponseUsingBrotliEncoding()
     // {

@@ -37,6 +37,7 @@ Then paste this at the very end of the config array:
 */
 
 'response_compression' => [
+
     'threshold' => 10000,
 
     'level' => [
@@ -44,11 +45,12 @@ Then paste this at the very end of the config array:
         'br' => 10, // brotli
 
         // @see https://www.php.net/manual/en/function.gzencode.php
-        'gzip' => 10,
+        'gzip' => 9,
 
         // @see https://www.php.net/manual/en/function.gzdeflate.php
-        'deflate' => 10,
+        'deflate' => 9,
     ],
+
 ],
 ```
 

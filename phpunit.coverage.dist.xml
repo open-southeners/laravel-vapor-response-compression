@@ -16,6 +16,9 @@
     <include>
       <directory suffix=".php">./src</directory>
     </include>
+    <exclude>
+      <file>src/CompressionEncoding.php</file>
+    </exclude>
     <report>
       <clover outputFile="clover.xml"/>
     </report>

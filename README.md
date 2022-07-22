@@ -12,17 +12,33 @@ Add server-side response compression with different algorithm support (Gzip, bro
 composer require open-southeners/laravel-vapor-response-compression
 ```
 
-### Configure size threshold
+**Note: Remember this is different in older versions of Laravel, Laravel 9 should look like the following.**
 
-**Note: As for smaller responses this threshold will prevent to compress the response if it doesn't reach an specific number of bytes. We encourage you to configure this and not leave it as ±0 bytes otherwise response will be always compressed.**
+Then add the following to you `app/Http/Kernel.php` as a global middleware:
 
-Add this to your `config/vapor.php`, if you don't have this file, please use the following artisan command first:
+```php
+/**
+ * The application's global HTTP middleware stack.
+ *
+ * These middleware are run during every request to your application.
+ *
+ * @var array<string, array<int, class-string|string>>
+ */
+protected $middleware = [
+    // ...
+    \OpenSoutheners\LaravelVaporResponseCompression\ResponseCompression::class,
+];
+```
+
+### Configuration
+
+If you already have this `config/vapor.php` file, you can skip this step, otherwise please use the following artisan command first:
 
 ```bash
 php artisan vendor:publish --tag=vapor-config
 ```
 
-Then paste this at the very end of the config array:
+Then paste this as the last array item of your `config/vapor.php`:
 
 ```php
 /*
@@ -53,6 +69,8 @@ Then paste this at the very end of the config array:
 
 ],
 ```
+
+**Note: As for smaller responses this threshold will prevent to compress the response if it doesn't reach an specific number of bytes. We encourage you to configure this and not leave it as ±0 bytes otherwise response will be always compressed.**
 
 This configuration is **defaulted to 10000 bytes**, you may customise this as your application demands.
 

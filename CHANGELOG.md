@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2022-08-25
 
+### Added
+
+- Enable option following its environment variable `RESPONSE_COMPRESSION_ENABLE` (default: `true`)
+
 ### Changed
 
 - Its dedicated config file (`config/response-compression.php`). Publishable by running the command: `php artisan vendor:publish --tag=response-compression`

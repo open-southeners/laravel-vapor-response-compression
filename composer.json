@@ -20,7 +20,7 @@
         "ext-zlib": "^7.2|^8.0|^8.1"
     },
     "require-dev": {
-        "nunomaduro/larastan": "^2.1",
+        "nunomaduro/larastan": "^1.0|^2.0",
         "orchestra/testbench": "^4.0|^6.0|^7.0",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^7.0|^9.0"

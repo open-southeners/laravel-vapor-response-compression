@@ -29,7 +29,7 @@ class ResponseCompressionTest extends TestCase
         })->middleware(ResponseCompression::class);
     }
 
-    public function testClientGetResponseWhenThresholdNotReached()
+    public function testClientGetRawResponseWhenThresholdNotReached()
     {
         $this->withoutExceptionHandling();
 
@@ -40,6 +40,22 @@ class ResponseCompressionTest extends TestCase
         $this->assertEquals(
             $response->json(),
             ['content' => $this->lightResponseContent]
+        );
+    }
+    
+    public function testClientGetRawResponseWhenNotEnabled()
+    {
+        config(['response-compression.enable' => false]);
+
+        $this->withoutExceptionHandling();
+
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+
+        $response->assertHeaderMissing('Content-Encoding');
+
+        $this->assertEquals(
+            $response->json(),
+            ['content' => $this->heavyResponseContent]
         );
     }
 

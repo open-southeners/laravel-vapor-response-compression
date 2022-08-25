@@ -25,7 +25,7 @@ class ResponseCompression
                     call_user_func(
                         $function,
                         $response->getContent(),
-                        config("vapor.response_compression.level.${algo}", 9)
+                        config("response-compression.level.${algo}", 9)
                     )
                 );
 
@@ -45,7 +45,8 @@ class ResponseCompression
      */
     protected function shouldCompressResponse($response): bool
     {
-        return strlen($response->getContent()) >= config('vapor.response_compression.threshold', 10000);
+        return config('response-compression.enable', true)
+            && strlen($response->getContent()) >= config('response-compression.threshold', 10000);
     }
 
     /**

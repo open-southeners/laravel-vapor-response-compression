@@ -3,7 +3,11 @@
     "description": "Add server-side response compression with different algorithm support (Gzip, brotli...)",
     "license": "MIT",
     "keywords": [
-        "open-southeners", "vapor", "laravel", "response-compression", "brotli"
+        "open-southeners",
+        "vapor",
+        "laravel",
+        "response-compression",
+        "brotli"
     ],
     "authors": [
         {
@@ -33,6 +37,13 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OpenSoutheners\\LaravelVaporResponseCompression\\ServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "stable"
 }

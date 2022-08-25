@@ -16,13 +16,19 @@ Read more here: https://docs.aws.amazon.com/apigateway/latest/developerguide/lim
 
 ## Getting started
 
-```
+```bash
 composer require open-southeners/laravel-vapor-response-compression
 ```
 
-**Note: Remember this is different in older versions of Laravel, Laravel 9 should look like the following.**
+Then publish the configuration file defaults into your application's config folder:
+
+```bash
+php artisan vendor:publish --tag=response-compression
+```
 
 Then add the following to you `app/Http/Kernel.php` as a global middleware:
+
+**Note: Remember this is different in older versions of Laravel, Laravel 9 should look like the following.**
 
 ```php
 /**
@@ -40,42 +46,10 @@ protected $middleware = [
 
 ### Configuration
 
-If you already have this `config/vapor.php` file, you can skip this step, otherwise please use the following artisan command first:
+If you already have this `config/response-compression.php` file, you can skip this step, otherwise please use the following artisan command first:
 
 ```bash
-php artisan vendor:publish --tag=vapor-config
-```
-
-Then paste this as the last array item of your `config/vapor.php`:
-
-```php
-/*
-|--------------------------------------------------------------------------
-| Response Compression
-|--------------------------------------------------------------------------
-|
-| Here you can configure the response size (in bytes) for the compression
-| threshold, as compressing small responses will result in processing
-| time and result response size penalty for both client and server.
-|
-*/
-
-'response_compression' => [
-
-    'threshold' => 10000,
-
-    'level' => [
-        // @see https://paulcalvano.com/2018-07-25-brotli-compression-how-much-will-it-reduce-your-content/
-        'br' => 10, // brotli
-
-        // @see https://www.php.net/manual/en/function.gzencode.php
-        'gzip' => 9,
-
-        // @see https://www.php.net/manual/en/function.gzdeflate.php
-        'deflate' => 9,
-    ],
-
-],
+php artisan vendor:publish --tag=response-compression
 ```
 
 **Note: As for smaller responses this threshold will prevent to compress the response if it doesn't reach an specific number of bytes. We encourage you to configure this and not leave it as ±0 bytes otherwise response will be always compressed.**

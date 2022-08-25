@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2022-08-25
+
+### Changed
+
+- Its dedicated config file (`config/response-compression.php`). Publishable by running the command: `php artisan vendor:publish --tag=response-compression`
+
 ## [1.0.0] - 2022-07-22
 
 ### Added

@@ -25,7 +25,7 @@ class ResponseCompression
                     call_user_func(
                         $function,
                         $response->getContent(),
-                        config("response-compression.level.${algo}", 9)
+                        config("response-compression.level.{$algo}", 9)
                     )
                 );
 

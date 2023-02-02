@@ -9,12 +9,13 @@ jobs:
     name: Laravel Pint
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
+          coverage: none
           tools: laravel/pint
 
       - name: Run analysis

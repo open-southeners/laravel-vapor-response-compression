@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get latest release info
+        id: get-release-info
+        uses: release-flow/keep-a-changelog-action/get-release-info@v1
+        with:
+          release-version: latest
+
+      - name: Publish to Github releases
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.get-release-info.outputs.release-notes }}
+          # prerelease: true
+          # files: '*.vsix'

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2023-02-02
+
+### Fixed
+
+- PHP 8.2 interpolation deprecations
+
 ## [2.0.0] - 2022-08-25
 
 ### Added

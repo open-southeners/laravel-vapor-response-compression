@@ -16,14 +16,14 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0|^8.1|^8.2",
-        "ext-zlib": "^7.2|^8.0|^8.1|^8.2"
+        "php": "^8.0|^8.1|^8.2",
+        "ext-zlib": "^8.0|^8.1|^8.2"
     },
     "require-dev": {
-        "nunomaduro/larastan": "^1.0|^2.0",
-        "orchestra/testbench": "^4.0|^6.0|^7.0",
+        "nunomaduro/larastan": "^2.0",
+        "orchestra/testbench": "^7.0|^8.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^7.0|^9.0"
+        "phpunit/phpunit": "^9.0|^10.0"
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,7 @@
 /vendor/
 /node_modules
 composer.lock
-.phpunit.result.cache
+coverage
+.phpunit.cache
 phpunit.xml
 .DS_Store

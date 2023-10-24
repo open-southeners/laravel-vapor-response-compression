@@ -12,19 +12,21 @@
     "authors": [
         {
             "name": "Ruben Robles",
-            "email": "d8vjork@outlook.com"
+            "email": "me@d8vjork.com",
+            "homepage": "https://d8vjork.com"
         }
     ],
     "require": {
-        "php": "^8.0|^8.1|^8.2",
-        "ext-zlib": "^8.0|^8.1|^8.2"
+        "php": "^7.4 || ^8.0",
+        "ext-zlib": "^7.4 || ^8.0"
     },
     "require-dev": {
         "nunomaduro/larastan": "^2.0",
-        "orchestra/testbench": "^7.0|^8.0",
+        "orchestra/testbench": "^7.0 || ^8.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.0|^10.0"
+        "phpunit/phpunit": "^9.0 || ^10.0"
     },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "OpenSoutheners\\LaravelVaporResponseCompression\\": "src"
@@ -44,6 +46,5 @@
                 "OpenSoutheners\\LaravelVaporResponseCompression\\ServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "stable"
+    }
 }

@@ -1,10 +1,7 @@
-# Laravel Vapor Response Compression
+Laravel Vapor Response Compression [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-vapor-response-compression)](https://www.php.net/supported-versions.php) [![codecov](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-vapor-response-compression)
+===
 
 Add server-side response compression with different algorithm support (Gzip, brotli, deflate...)
-
-## Status
-
-[![latest tag](https://img.shields.io/github/v/tag/open-southeners/laravel-vapor-response-compression?label=latest&sort=semver)](https://github.com/open-southeners/laravel-vapor-response-compression/releases/latest) [![packagist version](https://img.shields.io/packagist/v/open-southeners/laravel-vapor-response-compression)](https://packagist.org/packages/open-southeners/laravel-vapor-response-compression) [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-vapor-response-compression)](https://www.php.net/supported-versions.php) [![run-tests](https://github.com/open-southeners/laravel-vapor-response-compression/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/open-southeners/laravel-vapor-response-compression/actions/workflows/tests.yml) [![phpstan](https://github.com/open-southeners/laravel-vapor-response-compression/actions/workflows/phpstan.yml/badge.svg)](https://github.com/open-southeners/laravel-vapor-response-compression/actions/workflows/phpstan.yml) [![Laravel Pint](https://img.shields.io/badge/code%20style-pint-orange?logo=laravel)](https://github.com/open-southeners/laravel-vapor-response-compression/actions/workflows/pint.yml) [![codecov](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-vapor-response-compression)
 
 ## Why use this package?
 

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2024-02-14
+
+### Changed
+
+- Ignore `response()->stream()`, `response()->streamDownload()` and `response()->streamDownload()` responses as files might be already compressed. [#2]
+- Ignore compression when `Content-Encoding` header already present. [#2]
+
 ## [2.0.1] - 2023-02-02
 
 ### Fixed

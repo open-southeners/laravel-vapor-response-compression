@@ -42,7 +42,7 @@ class ResponseCompressionTest extends TestCase
             ['content' => $this->lightResponseContent]
         );
     }
-    
+
     public function testClientGetRawResponseWhenNotEnabled()
     {
         config(['response-compression.enable' => false]);
@@ -92,6 +92,42 @@ class ResponseCompressionTest extends TestCase
         $this->assertEquals(
             $response->json(),
             ['content' => $this->heavyResponseContent]
+        );
+    }
+
+    public function testClientGetResponseWithContentEncodingHeaderAlreadyAttachedReceivesRawResponse()
+    {
+        Route::get('/heavy-ignored', function () {
+            return response()->json([
+                'content' => $this->heavyResponseContent,
+            ], 200, ['Content-Encoding' => CompressionEncoding::DEFLATE]);
+        })->middleware(ResponseCompression::class);
+
+        $response = $this->get('/heavy-ignored', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+
+        $response->assertHeader('Content-Encoding', CompressionEncoding::DEFLATE);
+
+        $this->assertEquals(
+            $response->json(),
+            ['content' => $this->heavyResponseContent]
+        );
+    }
+
+    public function testClientGetStreamDownloadResponseReceivesRawResponse()
+    {
+        Route::get('/download', function () {
+            return response()->streamDownload(function () {
+                echo $this->heavyResponseContent;
+            });
+        })->middleware(ResponseCompression::class);
+
+        $response = $this->get('/download', ['Accept-Encoding' => CompressionEncoding::DEFLATE]);
+
+        $response->assertHeaderMissing('Content-Encoding');
+
+        $this->assertEquals(
+            $response->streamedContent(),
+            $this->heavyResponseContent
         );
     }
 

@@ -3,6 +3,8 @@
 namespace OpenSoutheners\LaravelVaporResponseCompression;
 
 use Closure;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ResponseCompression
 {
@@ -10,7 +12,6 @@ class ResponseCompression
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -40,12 +41,14 @@ class ResponseCompression
     /**
      * Determine if response should be compressed.
      *
-     * @param  \Illuminate\Http\Response  $response
-     * @return bool
+     * @param  \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response  $response
      */
     protected function shouldCompressResponse($response): bool
     {
-        return config('response-compression.enable', true)
+        return ! $response instanceof BinaryFileResponse
+            && ! $response instanceof StreamedResponse
+            && ! $response->headers->has('Content-Encoding')
+            && config('response-compression.enable', true)
             && strlen($response->getContent()) >= config('response-compression.threshold', 10000);
     }
 

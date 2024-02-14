@@ -1,7 +1,7 @@
-Laravel Vapor Response Compression [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-vapor-response-compression)](https://www.php.net/supported-versions.php) [![codecov](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-vapor-response-compression)
+Laravel Response Compression [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-vapor-response-compression)](https://www.php.net/supported-versions.php) [![codecov](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-vapor-response-compression)
 ===
 
-Add server-side response compression with different algorithm support (Gzip, brotli, deflate...)
+Add server-side response compression with a range of different algorithms (Gzip, brotli, deflate...)
 
 ## Why use this package?
 

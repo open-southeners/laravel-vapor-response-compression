@@ -1,13 +1,16 @@
 {
     "name": "open-southeners/laravel-vapor-response-compression",
-    "description": "Add server-side response compression with different algorithm support (Gzip, brotli...)",
+    "description": "Add server-side response compression with a range of different algorithms (Gzip, brotli, deflate...)",
     "license": "MIT",
     "keywords": [
         "open-southeners",
         "vapor",
         "laravel",
+        "laravel-vapor",
         "response-compression",
-        "brotli"
+        "gzip-compression",
+        "deflate-compression",
+        "brotli-compression"
     ],
     "authors": [
         {

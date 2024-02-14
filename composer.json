@@ -22,9 +22,9 @@
     },
     "require-dev": {
         "larastan/larastan": "^2.0",
-        "orchestra/testbench": "^7.0 || ^8.0",
+        "orchestra/testbench": "^8.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.0 || ^10.0"
+        "phpunit/phpunit": "^10.0"
     },
     "minimum-stability": "stable",
     "autoload": {

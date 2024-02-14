@@ -17,11 +17,11 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-zlib": "^7.4 || ^8.0"
+        "php": "^7.2 || ^8.0",
+        "ext-zlib": "^7.2 || ^8.0"
     },
     "require-dev": {
-        "nunomaduro/larastan": "^2.0",
+        "larastan/larastan": "^2.0",
         "orchestra/testbench": "^7.0 || ^8.0",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^9.0 || ^10.0"

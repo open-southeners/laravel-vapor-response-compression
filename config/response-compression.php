@@ -20,8 +20,11 @@ return [
 
     'level' => [
 
+        // @see https://paulcalvano.com/2024-03-19-choosing-between-gzip-brotli-and-zstandard-compression/
+        'zstd' => 11, // zstandard
+        
         // @see https://paulcalvano.com/2018-07-25-brotli-compression-how-much-will-it-reduce-your-content/
-        'br' => 10, // brotli
+        'br' => 9, // brotli
 
         // @see https://www.php.net/manual/en/function.gzencode.php
         'gzip' => 9,

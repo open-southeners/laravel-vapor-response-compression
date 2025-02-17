@@ -131,6 +131,18 @@ class ResponseCompressionTest extends TestCase
         );
     }
 
+     public function testClientGetResponseUsingZstandardEncoding()
+     {
+         $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::ZSTANDARD]);
+
+         $response->assertHeader('Content-Encoding', CompressionEncoding::ZSTANDARD);
+
+         $this->assertEquals(
+             zstd_uncompress($response->getContent()),
+             json_encode(['content' => $this->heavyResponseContent])
+         );
+     }
+
     // TODO: vdechenaux/brotli is not compatible with Laravel dependencies...
     // public function testClientGetResponseUsingBrotliEncoding()
     // {

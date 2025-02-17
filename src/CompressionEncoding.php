@@ -6,7 +6,9 @@ class CompressionEncoding
 {
     public const BROTLI = 'br';
 
+    public const DEFLATE = 'deflate';
+
     public const GZIP = 'gzip';
 
-    public const DEFLATE = 'deflate';
+    public const ZSTANDARD = 'zstd';
 }

@@ -19,6 +19,9 @@ jobs:
 
           - laravel: 11.*
             testbench: 9.*
+        exclude:
+          - laravel: 11.*
+            php: 8.1
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -56,6 +59,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          flags: php${{ matrix.php }}-laravel${{ matrix.laravel }}
           files: ./clover.xml
           fail_ci_if_error: true
           # verbose: true

@@ -55,12 +55,13 @@ php artisan vendor:publish --tag=response-compression
 
 This configuration is **defaulted to 10000 bytes**, you may customise this as your application demands.
 
-### Setting up Brotli extension in Vapor
+### Setting up Brotli and/or ZStandard extensions in Vapor
 
 First of all, **this will require you to use Docker containers on your Vapor environments** if you're not familiar with them, you can still use this extension as **it uses the first client requested algorithm available at server side**.
 
 👉 [Read more about using containers in Vapor here](https://docs.vapor.build/1.0/projects/environments.html#docker-runtimes)
 
+#### Brotli
 Anyway, in case you want to proceed, add this to your environment Dockerfile(s), **please use comments as references only**:
 
 ```Dockerfile
@@ -77,7 +78,25 @@ And ensure your project depends on [vdechenaux/brotli](https://github.com/vdeche
 
 Another alternative is to use: https://github.com/kjdev/php-ext-brotli
 
-_TODO: Setup instructions for Vapor/Dockerfile_
+```Dockerfile
+# FROM laravelphp/vapor:php81
+
+RUN pecl install brotli \
+    && docker-php-ext-enable brotli \
+
+# COPY . /var/task
+```
+
+#### ZStandard
+
+```Dockerfile
+# FROM laravelphp/vapor:php81
+
+RUN pecl install zstd  \
+    && docker-php-ext-enable zstd \
+
+# COPY . /var/task
+```
 
 ## Credits
 

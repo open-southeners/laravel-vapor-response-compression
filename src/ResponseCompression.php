@@ -62,6 +62,10 @@ class ResponseCompression
     {
         $requestEncodings = $request->getEncodings();
 
+        if (in_array(CompressionEncoding::ZSTANDARD, $requestEncodings) && function_exists('zstd_compress')) {
+            return [CompressionEncoding::ZSTANDARD, 'zstd_compress'];
+        }
+        
         if (in_array(CompressionEncoding::BROTLI, $requestEncodings) && function_exists('brotli_compress')) {
             return [CompressionEncoding::BROTLI, 'brotli_compress'];
         }

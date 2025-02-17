@@ -49,16 +49,16 @@ class ResponseCompression
             && ! $response instanceof StreamedResponse
             && ! $response->headers->has('Content-Encoding')
             && config('response-compression.enable', true)
-            && strlen($response->getContent()) >= config('response-compression.threshold', 10000);
+            && strlen($response->getContent() ?: '') >= config('response-compression.threshold', 10000);
     }
 
     /**
      * Determine which algorithm should be used to compress the response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array<string>|null
+     * @return array{0: string, 1: callable-string}|null
      */
-    protected function shouldCompressUsing($request)
+    protected function shouldCompressUsing($request): ?array
     {
         $requestEncodings = $request->getEncodings();
 

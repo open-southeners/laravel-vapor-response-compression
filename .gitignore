@@ -5,3 +5,4 @@ coverage
 .phpunit.cache
 phpunit.xml
 .DS_Store
+clover.xml

@@ -23,7 +23,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "ext-zlib": "^8.2"
+        "illuminate/http": "^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",

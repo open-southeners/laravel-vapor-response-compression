@@ -5,6 +5,7 @@ namespace OpenSoutheners\LaravelVaporResponseCompression;
 use Closure;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResponseCompression
 {
@@ -12,7 +13,8 @@ class ResponseCompression
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return mixed
+     * @param  \Closure(\Illuminate\Http\Request): \Symfony\Component\HttpFoundation\Response  $next
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle($request, Closure $next)
     {
@@ -22,13 +24,14 @@ class ResponseCompression
             if ($this->shouldCompressResponse($response) && $compressionAlgorithm !== null) {
                 [$algo, $function] = $compressionAlgorithm;
 
-                $response->setContent(
-                    call_user_func(
-                        $function,
-                        $response->getContent(),
-                        config("response-compression.level.{$algo}", 9)
-                    )
+                /** @var string $compressedContent */
+                $compressedContent = call_user_func(
+                    $function,
+                    $response->getContent(),
+                    config("response-compression.level.{$algo}", 9)
                 );
+                
+                $response->setContent($compressedContent);
 
                 $responseHeaders = [
                     'Content-Encoding' => $algo,
@@ -46,15 +49,26 @@ class ResponseCompression
     /**
      * Determine if response should be compressed.
      *
-     * @param  \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response  $response
+     * @param  \Symfony\Component\HttpFoundation\Response  $response
      */
     protected function shouldCompressResponse($response): bool
     {
-        return ! $response instanceof BinaryFileResponse
-            && ! $response instanceof StreamedResponse
-            && ! $response->headers->has('Content-Encoding')
-            && config('response-compression.enable', true)
-            && strlen($response->getContent() ?: '') >= config('response-compression.threshold', 10000);
+        if (
+            $response instanceof BinaryFileResponse
+                || $response instanceof StreamedResponse
+                || !config('response-compression.enable', true)
+        ) {
+            return false;
+        }
+        
+        if (
+            ! $response->headers->has('Content-Encoding')
+                && strlen($response->getContent() ?: '') >= config('response-compression.threshold', 10000)
+        ) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**

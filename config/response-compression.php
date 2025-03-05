@@ -17,24 +17,24 @@ return [
 
     // Threshold size in bytes from where the compression will be applied to responses
     // @see https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html#http-api-quotas
-    'threshold' => 10000,
+    'threshold' => env('RESPONSE_COMPRESSION_SIZE_THRESHOLD', 10000),
 
     'level' => [
 
         // @see https://paulcalvano.com/2024-03-19-choosing-between-gzip-brotli-and-zstandard-compression/
-        'zstd' => 11, // zstandard
+        'zstd' => env('RESPONSE_COMPRESSION_ZSTD_LEVEL', 11), // zstandard
         
         // @see https://paulcalvano.com/2018-07-25-brotli-compression-how-much-will-it-reduce-your-content/
-        'br' => 9, // brotli
+        'br' => env('RESPONSE_COMPRESSION_BROTLI_LEVEL', 9), // brotli
 
         // @see https://www.php.net/manual/en/function.gzencode.php
-        'gzip' => 9,
+        'gzip' => env('RESPONSE_COMPRESSION_GZIP_LEVEL', 9),
 
         // @see https://www.php.net/manual/en/function.gzdeflate.php
-        'deflate' => 9,
+        'deflate' => env('RESPONSE_COMPRESSION_DEFLATE_LEVEL', 9),
         
         // @see Maximum level is 12 at the moment of this written
-        'lz4' => 4,
+        'lz4' => env('RESPONSE_COMPRESSION_LZ4_LEVEL', 4),
 
     ],
 

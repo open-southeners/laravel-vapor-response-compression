@@ -1,7 +1,7 @@
-Laravel Response Compression [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-vapor-response-compression)](https://www.php.net/supported-versions.php) [![codecov](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-vapor-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-vapor-response-compression)
+Laravel Response Compression [![required php version](https://img.shields.io/packagist/php-v/open-southeners/laravel-response-compression)](https://www.php.net/supported-versions.php) [![codecov](https://codecov.io/gh/open-southeners/laravel-response-compression/branch/main/graph/badge.svg?token=Q31AYXXGOA)](https://codecov.io/gh/open-southeners/laravel-response-compression) [![Edit on VSCode online](https://img.shields.io/badge/vscode-edit%20online-blue?logo=visualstudiocode)](https://vscode.dev/github/open-southeners/laravel-response-compression)
 ===
 
-Add server-side response compression with a range of different algorithms (Gzip, brotli, deflate...)
+Add server-side response compression to Laravel with a range of different algorithms (Gzip, brotli, deflate...)
 
 ## Why use this package?
 
@@ -59,13 +59,13 @@ This configuration is **defaulted to 10000 bytes**, you may customise this as yo
 
 First of all, **this will require you to use Docker containers on your Vapor environments** if you're not familiar with them, you can still use this extension as **it uses the first client requested algorithm available at server side**.
 
-👉 [Read more about using containers in Vapor here](https://docs.vapor.build/1.0/projects/environments.html#docker-runtimes)
+👉 [Read more about using containers in Vapor here](https://docs.vapor.build/projects/environments#docker-runtimes)
 
 #### Brotli
 Anyway, in case you want to proceed, add this to your environment Dockerfile(s), **please use comments as references only**:
 
 ```Dockerfile
-# FROM laravelphp/vapor:php81
+# FROM laravelphp/vapor:php84
 
 RUN apk add --no-cache brotli
 
@@ -78,8 +78,12 @@ And ensure your project depends on [vdechenaux/brotli](https://github.com/vdeche
 
 Another alternative is to use: https://github.com/kjdev/php-ext-brotli
 
+```sh
+pecl install brotli
+```
+
 ```Dockerfile
-# FROM laravelphp/vapor:php81
+# FROM laravelphp/vapor:php84
 
 RUN pecl install brotli \
     && docker-php-ext-enable brotli \
@@ -89,8 +93,14 @@ RUN pecl install brotli \
 
 #### ZStandard
 
+Using https://github.com/kjdev/php-ext-zstd
+
+```sh
+pecl install zstd
+```
+
 ```Dockerfile
-# FROM laravelphp/vapor:php81
+# FROM laravelphp/vapor:php84
 
 RUN pecl install zstd  \
     && docker-php-ext-enable zstd \
@@ -98,6 +108,19 @@ RUN pecl install zstd  \
 # COPY . /var/task
 ```
 
+#### Lz4
+
+Using https://github.com/kjdev/php-ext-lz4
+
+**Note: Only Debian or RHEL packages here, Vapor uses Alpine as base images so no luck here...**
+
+```sh
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+sudo apt install php-lz4
+```
+
 ## Credits
 
 - To [@jryd_13](https://twitter.com/@jryd_13) for writing [the article](https://bannister.me/blog/gzip-compression-on-laravel-vapor/) that [gave me this idea]()
+- To [@kjdev](https://github.com/kjdev) for supporting PHP with all his amazing extensions used here for different compression algorithms

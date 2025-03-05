@@ -28,20 +28,6 @@ class ResponseCompressionTest extends TestCase
             ]);
         })->middleware(ResponseCompression::class);
     }
-
-    public function testList()
-    {
-        $this->withoutExceptionHandling();
-
-        $response = $this->get('/light', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
-
-        $response->assertHeaderMissing('Content-Encoding');
-
-        $this->assertEquals(
-            $response->json(),
-            ['content' => $this->lightResponseContent]
-        );
-    }
     
     public function testClientGetRawResponseWhenThresholdNotReached()
     {
@@ -84,15 +70,24 @@ class ResponseCompressionTest extends TestCase
             json_encode(['content' => $this->heavyResponseContent])
         );
     }
+    
+    public function testClientGetResponseWithVaporHeaderWhenWithinVapor()
+    {
+        putenv('VAPOR_SSM_PATH=1');
+
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Deflate->value]);
+
+        $response->assertHeader('X-Vapor-Base64-Encode', 'True');
+    }
 
     public function testClientGetResponseInThePreferredEncoding()
     {
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Deflate->value]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => implode(', ', [CompressionEncoding::Gzip->value, CompressionEncoding::Deflate->value])]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::Deflate->value);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Gzip->value);
 
         $this->assertEquals(
-            gzinflate($response->getContent()),
+            gzdecode($response->getContent()),
             json_encode(['content' => $this->heavyResponseContent])
         );
     }

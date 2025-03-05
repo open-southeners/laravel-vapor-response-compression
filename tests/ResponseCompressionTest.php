@@ -29,11 +29,25 @@ class ResponseCompressionTest extends TestCase
         })->middleware(ResponseCompression::class);
     }
 
+    public function testList()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->get('/light', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
+
+        $response->assertHeaderMissing('Content-Encoding');
+
+        $this->assertEquals(
+            $response->json(),
+            ['content' => $this->lightResponseContent]
+        );
+    }
+    
     public function testClientGetRawResponseWhenThresholdNotReached()
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->get('/light', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+        $response = $this->get('/light', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
 
         $response->assertHeaderMissing('Content-Encoding');
 
@@ -49,7 +63,7 @@ class ResponseCompressionTest extends TestCase
 
         $this->withoutExceptionHandling();
 
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
 
         $response->assertHeaderMissing('Content-Encoding');
 
@@ -61,9 +75,9 @@ class ResponseCompressionTest extends TestCase
 
     public function testClientGetResponseCompressedWhenThresholdReached()
     {
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::GZIP);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Gzip->value);
 
         $this->assertEquals(
             gzdecode($response->getContent()),
@@ -73,9 +87,9 @@ class ResponseCompressionTest extends TestCase
 
     public function testClientGetResponseInThePreferredEncoding()
     {
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::DEFLATE]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Deflate->value]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::DEFLATE);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Deflate->value);
 
         $this->assertEquals(
             gzinflate($response->getContent()),
@@ -100,12 +114,12 @@ class ResponseCompressionTest extends TestCase
         Route::get('/heavy-ignored', function () {
             return response()->json([
                 'content' => $this->heavyResponseContent,
-            ], 200, ['Content-Encoding' => CompressionEncoding::DEFLATE]);
+            ], 200, ['Content-Encoding' => CompressionEncoding::Deflate->value]);
         })->middleware(ResponseCompression::class);
 
-        $response = $this->get('/heavy-ignored', ['Accept-Encoding' => CompressionEncoding::GZIP]);
+        $response = $this->get('/heavy-ignored', ['Accept-Encoding' => CompressionEncoding::Gzip->value]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::DEFLATE);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Deflate->value);
 
         $this->assertEquals(
             $response->json(),
@@ -121,7 +135,7 @@ class ResponseCompressionTest extends TestCase
             });
         })->middleware(ResponseCompression::class);
 
-        $response = $this->get('/download', ['Accept-Encoding' => CompressionEncoding::DEFLATE]);
+        $response = $this->get('/download', ['Accept-Encoding' => CompressionEncoding::Deflate->value]);
 
         $response->assertHeaderMissing('Content-Encoding');
 
@@ -133,9 +147,9 @@ class ResponseCompressionTest extends TestCase
 
     public function testClientGetResponseUsingZstandardEncoding()
     {
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::ZSTANDARD]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Zstandard->value]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::ZSTANDARD);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Zstandard->value);
 
         $this->assertEquals(
             zstd_uncompress($response->getContent()),
@@ -145,12 +159,24 @@ class ResponseCompressionTest extends TestCase
 
     public function testClientGetResponseUsingBrotliEncoding()
     {
-        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::BROTLI]);
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Brotli->value]);
 
-        $response->assertHeader('Content-Encoding', CompressionEncoding::BROTLI);
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Brotli->value);
 
         $this->assertEquals(
             brotli_uncompress($response->getContent()),
+            json_encode(['content' => $this->heavyResponseContent])
+        );
+    }
+    
+    public function testClientGetResponseUsingLz4Encoding()
+    {
+        $response = $this->get('/heavy', ['Accept-Encoding' => CompressionEncoding::Lz4->value]);
+
+        $response->assertHeader('Content-Encoding', CompressionEncoding::Lz4->value);
+
+        $this->assertEquals(
+            lz4_uncompress($response->getContent()),
             json_encode(['content' => $this->heavyResponseContent])
         );
     }

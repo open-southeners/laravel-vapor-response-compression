@@ -1,5 +1,5 @@
 {
-    "name": "open-southeners/laravel-vapor-response-compression",
+    "name": "open-southeners/laravel-response-compression",
     "description": "Add server-side response compression with a range of different algorithms (Gzip, brotli, deflate...)",
     "license": "MIT",
     "keywords": [
@@ -10,7 +10,9 @@
         "response-compression",
         "gzip-compression",
         "deflate-compression",
-        "brotli-compression"
+        "brotli-compression",
+        "ztsd-compression",
+        "lz4-compression"
     ],
     "authors": [
         {
@@ -20,13 +22,13 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "ext-zlib": "^7.2 || ^8.0"
+        "php": "^8.2",
+        "ext-zlib": "^8.2"
     },
     "require-dev": {
-        "larastan/larastan": "^2.0",
-        "orchestra/testbench": "^8.0 || ^9.0",
-        "phpstan/phpstan": "^1.0",
+        "larastan/larastan": "^3.0",
+        "orchestra/testbench": "^9.0 || ^10.0",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^10.0"
     },
     "minimum-stability": "stable",

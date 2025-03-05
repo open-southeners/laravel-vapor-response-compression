@@ -15,6 +15,7 @@ return [
 
     'enable' => env('RESPONSE_COMPRESSION_ENABLE', true),
 
+    // Threshold size in bytes from where the compression will be applied to responses
     // @see https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html#http-api-quotas
     'threshold' => 10000,
 
@@ -31,6 +32,9 @@ return [
 
         // @see https://www.php.net/manual/en/function.gzdeflate.php
         'deflate' => 9,
+        
+        // @see Maximum level is 12 at the moment of this written
+        'lz4' => 4,
 
     ],
 

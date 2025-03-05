@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2025-03-05
+
+### Added
+
+- lz4 compression algorithm
+- Compression algorithm preference based on the ones sent from client (if supported by server)
+- Laravel dependencies
+
+### Changed
+
+- **Package rename to `open-southeners/laravel-response-compression`, change all `OpenSoutheners\LaravelVaporResponseCompression` to `OpenSoutheners\LaravelResponseCompression`**
+- **Config file with `*_LEVEL` environment variables for each algorithm compression level, force publishing using `php artisan vendor:publish --tag="response-compression" --force`**
+- `CompressionEncoding` is now a backed enum instead with some functionality
+
+### Removed
+
+- Laravel 9 and 10 support
+- PHP 7.4 and 8.0 support
+- Composer dependency for zlib PHP extension (not really required)
+
 ## [2.2.0] - 2025-02-17
 
 ### Added

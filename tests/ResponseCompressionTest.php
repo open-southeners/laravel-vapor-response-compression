@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenSoutheners\LaravelVaporResponseCompression\Tests;
+namespace OpenSoutheners\LaravelResponseCompression\Tests;
 
 use Illuminate\Support\Facades\Route;
-use OpenSoutheners\LaravelVaporResponseCompression\CompressionEncoding;
-use OpenSoutheners\LaravelVaporResponseCompression\ResponseCompression;
+use OpenSoutheners\LaravelResponseCompression\CompressionEncoding;
+use OpenSoutheners\LaravelResponseCompression\ResponseCompression;
 
 class ResponseCompressionTest extends TestCase
 {

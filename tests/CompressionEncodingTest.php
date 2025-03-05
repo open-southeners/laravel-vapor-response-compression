@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenSoutheners\LaravelVaporResponseCompression\Tests;
+namespace OpenSoutheners\LaravelResponseCompression\Tests;
 
-use OpenSoutheners\LaravelVaporResponseCompression\CompressionEncoding;
+use OpenSoutheners\LaravelResponseCompression\CompressionEncoding;
 use PHPUnit\Framework\TestCase;
 
 class CompressionEncodingTest extends TestCase

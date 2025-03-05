@@ -39,7 +39,7 @@ Then add the following to you `app/Http/Kernel.php` as a global middleware:
  */
 protected $middleware = [
     // ...
-    \OpenSoutheners\LaravelVaporResponseCompression\ResponseCompression::class,
+    \OpenSoutheners\LaravelResponseCompression\ResponseCompression::class,
 ];
 ```
 

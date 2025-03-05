@@ -2,13 +2,63 @@
 
 namespace OpenSoutheners\LaravelVaporResponseCompression;
 
-class CompressionEncoding
+use ReflectionEnumBackedCase;
+
+enum CompressionEncoding: string
 {
-    public const BROTLI = 'br';
+    #[EncoderAsFunction('brotli_compress')]
+    case Brotli = 'br';
 
-    public const DEFLATE = 'deflate';
+    #[EncoderAsFunction('gzdeflate')]
+    case Deflate = 'deflate';
 
-    public const GZIP = 'gzip';
+    #[EncoderAsFunction('gzencode')]
+    case Gzip = 'gzip';
 
-    public const ZSTANDARD = 'zstd';
+    #[EncoderAsFunction('zstd_compress')]
+    case Zstandard = 'zstd';
+    
+    #[EncoderAsFunction('lz4_compress')]
+    case Lz4 = 'lz4';
+    
+    /**
+     * Get a list of compression encoding formats supported by the system.
+     *
+     * @return array<string, string>
+     */
+    public static function listSupported(): array
+    {
+        $supportedList = [];
+        
+        foreach (self::cases() as $case) {
+            if ($function = $case->isSupported()) {
+                $supportedList[$case->value] = $function;
+            }
+        }
+        
+        return $supportedList;
+    }
+    
+    /**
+     * Check if compression encoding is supported by this system in case not it returns null.
+     */
+    public function isSupported(): ?string
+    {
+        $reflector = new ReflectionEnumBackedCase(self::class, $this->name);
+        
+        $attributes = $reflector->getAttributes(EncoderAsFunction::class);
+        
+        if (count($attributes) === 0) {
+            return null;
+        }
+        
+        /** @var \OpenSoutheners\LaravelVaporResponseCompression\EncoderAsFunction $attribute */
+        $attribute = $attributes[0]->newInstance();
+        
+        if (function_exists($attribute->name)) {
+            return $attribute->name;
+        }
+        
+        return null;
+    }
 }

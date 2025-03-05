@@ -30,10 +30,15 @@ class ResponseCompression
                     )
                 );
 
-                $response->headers->add([
+                $responseHeaders = [
                     'Content-Encoding' => $algo,
-                    'X-Vapor-Base64-Encode' => 'True',
-                ]);
+                ];
+                
+                if (getenv('VAPOR_SSM_PATH')) {
+                    $responseHeaders['X-Vapor-Base64-Encode'] = 'True';
+                }
+                
+                $response->headers->add($responseHeaders);
             }
         });
     }
@@ -60,24 +65,14 @@ class ResponseCompression
      */
     protected function shouldCompressUsing($request): ?array
     {
-        $requestEncodings = $request->getEncodings();
+        $supportedList = CompressionEncoding::listSupported();
+        
+        $fromSupportedList = array_intersect($request->getEncodings(), array_keys($supportedList));
 
-        if (in_array(CompressionEncoding::ZSTANDARD, $requestEncodings) && function_exists('zstd_compress')) {
-            return [CompressionEncoding::ZSTANDARD, 'zstd_compress'];
+        if ($fromSupportedList[0] ?? false) {
+            return [$fromSupportedList[0], $supportedList[$fromSupportedList[0]]];
         }
         
-        if (in_array(CompressionEncoding::BROTLI, $requestEncodings) && function_exists('brotli_compress')) {
-            return [CompressionEncoding::BROTLI, 'brotli_compress'];
-        }
-
-        if (in_array(CompressionEncoding::GZIP, $requestEncodings) && function_exists('gzencode')) {
-            return [CompressionEncoding::GZIP, 'gzencode'];
-        }
-
-        if (in_array(CompressionEncoding::DEFLATE, $requestEncodings) && function_exists('gzdeflate')) {
-            return [CompressionEncoding::DEFLATE, 'gzdeflate'];
-        }
-
         return null;
     }
 }

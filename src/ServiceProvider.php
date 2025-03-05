@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSoutheners\LaravelVaporResponseCompression;
+namespace OpenSoutheners\LaravelResponseCompression;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

@@ -35,12 +35,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "OpenSoutheners\\LaravelVaporResponseCompression\\": "src"
+            "OpenSoutheners\\LaravelResponseCompression\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenSoutheners\\LaravelVaporResponseCompression\\Tests\\": "tests"
+            "OpenSoutheners\\LaravelResponseCompression\\Tests\\": "tests"
         }
     },
     "config": {
@@ -49,7 +49,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OpenSoutheners\\LaravelVaporResponseCompression\\ServiceProvider"
+                "OpenSoutheners\\LaravelResponseCompression\\ServiceProvider"
             ]
         }
     }

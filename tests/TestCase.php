@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSoutheners\LaravelVaporResponseCompression\Tests;
+namespace OpenSoutheners\LaravelResponseCompression\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 

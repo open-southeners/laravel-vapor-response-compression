@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenSoutheners\LaravelVaporResponseCompression;
+namespace OpenSoutheners\LaravelResponseCompression;
 
 use ReflectionEnumBackedCase;
 
@@ -54,7 +54,7 @@ enum CompressionEncoding: string
             return null;
         }
         
-        /** @var \OpenSoutheners\LaravelVaporResponseCompression\EncoderAsFunction $attribute */
+        /** @var \OpenSoutheners\LaravelResponseCompression\EncoderAsFunction $attribute */
         $attribute = $attributes[0]->newInstance();
         
         if (function_exists($attribute->name)) {

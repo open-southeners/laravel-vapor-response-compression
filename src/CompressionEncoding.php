@@ -24,7 +24,7 @@ enum CompressionEncoding: string
     /**
      * Get a list of compression encoding formats supported by the system.
      *
-     * @return array<string, string>
+     * @return array<string, callable-string>
      */
     public static function listSupported(): array
     {
@@ -41,6 +41,8 @@ enum CompressionEncoding: string
     
     /**
      * Check if compression encoding is supported by this system in case not it returns null.
+     *
+     * @return callable-string|null
      */
     public function isSupported(): ?string
     {
